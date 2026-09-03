@@ -1,0 +1,11 @@
+{
+  "name": "LashFit AI 睫毛試戴",
+  "short_name": "LashFit AI",
+  "description": "美睫店專用 AI 睫毛試戴系統",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F7F1E8",
+  "theme_color": "#6B4B3A",
+  "orientation": "portrait",
+  "lang": "zh-Hant"
+}
