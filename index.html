@@ -2,273 +2,187 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f5efe6">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#f7f1e9">
 <title>LashFit AI｜睫毛試戴</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "PingFang TC",
-    "Noto Sans TC",
-    sans-serif;
-  background:#f5efe6;
-  color:#4b382f;
+  background:#f7f1e9;
+  color:#4b352b;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;
 }
-
-button,
-input{
-  font:inherit;
-}
-
 .app{
   max-width:520px;
-  min-height:100vh;
   margin:auto;
-  background:#fbf7f1;
+  min-height:100vh;
+  padding:18px 16px 40px;
 }
-
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:18px 18px 12px;
-}
-
 .logo{
-  font-size:22px;
-  font-weight:700;
-  letter-spacing:1px;
+  font-size:28px;
+  font-weight:800;
+  margin:6px 4px 3px;
 }
-
-.logo small{
-  display:block;
-  font-size:11px;
-  font-weight:500;
-  color:#9a7c67;
-  margin-top:2px;
+.logo span{color:#b7925c}
+.sub{
+  margin:0 4px 18px;
+  color:#9c7d68;
+  font-size:14px;
+  font-weight:600;
 }
-
-.gold{
-  color:#b89562;
-}
-
-.screen{
-  padding:0 16px 30px;
-}
-
-.camera-card{
+.stage{
   position:relative;
   width:100%;
   aspect-ratio:3/4;
-  border-radius:28px;
+  border-radius:26px;
   overflow:hidden;
-  background:#2c2521;
-  box-shadow:0 14px 40px rgba(75,56,47,.15);
+  background:#28231f;
+  box-shadow:0 12px 30px rgba(60,40,30,.12);
 }
-
-#photo{
+#canvas{
+  display:none;
   width:100%;
   height:100%;
-  object-fit:cover;
-  display:none;
 }
-
-.camera-empty{
+.empty{
   position:absolute;
   inset:0;
   display:flex;
-  align-items:center;
-  justify-content:center;
   flex-direction:column;
-  color:white;
-  padding:25px;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
   text-align:center;
+  padding:30px;
 }
-
-.face-guide{
+.face{
   width:180px;
-  height:245px;
+  height:240px;
   border:2px solid rgba(255,255,255,.7);
   border-radius:50%;
-  margin-bottom:24px;
+  margin-bottom:25px;
 }
-
-.camera-empty h2{
-  margin:0 0 8px;
-  font-size:22px;
-}
-
-.camera-empty p{
+.empty h2{margin:0 0 10px}
+.empty p{
   margin:0;
-  color:rgba(255,255,255,.75);
-  line-height:1.6;
-  font-size:14px;
+  opacity:.72;
+  line-height:1.7;
 }
-
-.capture-bar{
+.actions{
   display:flex;
   gap:10px;
   margin-top:14px;
 }
-
-.main-btn{
-  flex:1;
+.btn{
   border:0;
   border-radius:18px;
   padding:16px;
-  background:#5a4033;
-  color:white;
   font-weight:700;
   font-size:16px;
 }
-
-.secondary-btn{
-  width:56px;
-  border:1px solid #d8c8ba;
-  border-radius:18px;
-  background:white;
-  color:#5a4033;
+.photo-btn{
+  flex:1;
+  background:#62493b;
+  color:#fff;
 }
-
-input[type=file]{
-  display:none;
+.plus-btn{
+  width:62px;
+  background:#fff;
+  border:1px solid #d9c9ba;
+  color:#62493b;
+  font-size:24px;
 }
+input[type=file]{display:none}
+.hidden{display:none}
 
-.section-title{
-  font-size:15px;
-  font-weight:700;
-  margin:24px 2px 12px;
+.title{
+  margin:25px 2px 12px;
+  font-weight:800;
+  font-size:16px;
 }
-
 .styles{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:9px;
 }
-
-.style-btn{
-  border:1px solid #ded0c4;
-  background:white;
-  border-radius:16px;
-  padding:13px 6px;
-  color:#5a4033;
-  font-size:13px;
-  min-height:60px;
+.style{
+  min-height:65px;
+  padding:8px;
+  background:#fff;
+  border:1px solid #dfd0c2;
+  color:#5d4337;
+  border-radius:18px;
 }
-
-.style-btn.active{
-  background:#5a4033;
-  color:white;
-  border-color:#5a4033;
-  box-shadow:0 5px 15px rgba(90,64,51,.22);
+.style.active{
+  background:#62493b;
+  color:#fff;
+  border-color:#62493b;
 }
-
-.notice{
-  background:#f0e6dc;
-  border-radius:16px;
-  padding:12px 14px;
+.status{
+  margin-top:12px;
+  background:#efe3d7;
+  border-radius:15px;
+  padding:12px;
   font-size:12px;
   line-height:1.6;
-  color:#806858;
-  margin-top:12px;
+  color:#826756;
 }
 
-.adjust-panel{
-  background:white;
-  border-radius:22px;
-  padding:16px;
-  margin-top:12px;
-  border:1px solid #eadfd6;
+.panel{
+  background:#fff;
+  padding:15px;
+  border-radius:20px;
+  border:1px solid #e5d9cf;
 }
-
-.eye-tabs{
+.tabs{
   display:flex;
   gap:8px;
-  margin-bottom:15px;
 }
-
-.eye-tab{
+.tab{
   flex:1;
   border:0;
-  background:#f0e7df;
-  color:#6b5143;
-  border-radius:14px;
   padding:11px;
+  border-radius:13px;
+  background:#eee5dc;
+  color:#674d3e;
 }
-
-.eye-tab.active{
-  background:#b89562;
+.tab.active{
+  background:#b7925c;
   color:white;
 }
-
-.control{
-  margin:15px 0;
-}
-
-.control-row{
+.control{margin-top:16px}
+.row{
   display:flex;
   justify-content:space-between;
-  margin-bottom:7px;
   font-size:13px;
+  margin-bottom:7px;
 }
-
 input[type=range]{
   width:100%;
-  accent-color:#9b7850;
+  accent-color:#9a744c;
 }
 
-.compare{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:white;
-  padding:14px;
-  border-radius:18px;
-  border:1px solid #eadfd6;
-  margin-top:12px;
-}
-
-.compare span{
-  font-size:12px;
-  white-space:nowrap;
-}
-
-.footer-actions{
+.bottom{
   display:flex;
   gap:10px;
-  margin-top:14px;
+  margin-top:15px;
 }
-
-.save-btn,
-.reset-btn{
+.reset,.save{
   flex:1;
   border:0;
   border-radius:16px;
-  padding:14px;
-  font-weight:700;
+  padding:15px;
+  font-weight:800;
 }
-
-.save-btn{
-  background:#b89562;
-  color:white;
+.reset{
+  background:#e9ded4;
+  color:#62493b;
 }
-
-.reset-btn{
-  background:#eadfd6;
-  color:#5a4033;
-}
-
-.hidden{
-  display:none;
+.save{
+  background:#b7925c;
+  color:#fff;
 }
 </style>
 </head>
@@ -277,544 +191,365 @@ input[type=range]{
 
 <div class="app">
 
-<header>
-  <div class="logo">
-    LashFit <span class="gold">AI</span>
-    <small>美睫專業試戴系統</small>
-  </div>
-</header>
+  <div class="logo">LashFit <span>AI</span></div>
+  <div class="sub">美睫專業試戴系統</div>
 
-<main class="screen">
+  <div class="stage">
+    <canvas id="canvas"></canvas>
 
-  <div class="camera-card">
-
-    <img id="photo" alt="客人照片">
-
-    <div class="camera-empty" id="cameraEmpty">
-      <div class="face-guide"></div>
-
+    <div id="empty" class="empty">
+      <div class="face"></div>
       <h2>拍攝客人正面照</h2>
-
-      <p>
-        請保持正面、雙眼清楚<br>
-        拍攝完成後即可進入睫毛試戴
-      </p>
+      <p>請保持正面、雙眼清楚<br>拍攝完成後進入睫毛試戴</p>
     </div>
-
   </div>
 
-  <div class="capture-bar">
-
-    <button class="main-btn" onclick="openCamera()">
-      📷 拍照
-    </button>
-
-    <button class="secondary-btn" onclick="openLibrary()">
-      ＋
-    </button>
-
+  <div class="actions">
+    <button class="btn photo-btn" onclick="camera.click()">📷 拍照</button>
+    <button class="btn plus-btn" onclick="library.click()">＋</button>
   </div>
 
-  <input
-    id="cameraInput"
-    type="file"
-    accept="image/*"
-    capture="user"
-  >
+  <input id="camera" type="file" accept="image/*" capture="user">
+  <input id="library" type="file" accept="image/*">
 
-  <input
-    id="libraryInput"
-    type="file"
-    accept="image/*"
-  >
+  <div id="tryon" class="hidden">
 
-  <div id="tryonArea" class="hidden">
-
-    <div class="section-title">
-      選擇睫毛款式
-    </div>
+    <div class="title">選擇睫毛款式</div>
 
     <div class="styles">
-
-      <button
-        class="style-btn active"
-        onclick="selectStyle(this,'6D自然濃密')"
-      >
-        6D自然濃密
-      </button>
-
-      <button
-        class="style-btn"
-        onclick="selectStyle(this,'6DYY編織')"
-      >
-        6DYY編織
-      </button>
-
-      <button
-        class="style-btn"
-        onclick="selectStyle(this,'小紅書設計款')"
-      >
-        小紅書設計款
-      </button>
-
-      <button
-        class="style-btn"
-        onclick="selectStyle(this,'6D自然')"
-      >
-        6D自然
-      </button>
-
-      <button
-        class="style-btn"
-        onclick="selectStyle(this,'6D裸妝')"
-      >
-        6D裸妝
-      </button>
-
-      <button
-        class="style-btn"
-        onclick="selectStyle(this,'6D焦糖（咖）')"
-      >
-        6D焦糖（咖）
-      </button>
-
+      <button class="style active" onclick="selectStyle(0,this)">6D自然濃密</button>
+      <button class="style" onclick="selectStyle(1,this)">6DYY編織</button>
+      <button class="style" onclick="selectStyle(2,this)">小紅書設計款</button>
+      <button class="style" onclick="selectStyle(3,this)">6D自然</button>
+      <button class="style" onclick="selectStyle(4,this)">6D裸妝</button>
+      <button class="style" onclick="selectStyle(5,this)">6D焦糖（咖）</button>
     </div>
 
-    <div class="notice" id="styleNotice">
-      目前選擇：6D自然濃密。下一階段會將你的原始六款睫毛素材放入系統，不重新生成睫毛。
+    <div id="status" class="status">
+      睫毛貼合引擎已啟用。下一步加入你的固定六款透明睫毛素材。
     </div>
 
-    <div class="section-title">
-      左右眼微調
-    </div>
+    <div class="title">左右眼微調</div>
 
-    <div class="adjust-panel">
+    <div class="panel">
 
-      <div class="eye-tabs">
-
-        <button
-          id="leftTab"
-          class="eye-tab active"
-          onclick="chooseEye('left')"
-        >
-          左眼
-        </button>
-
-        <button
-          id="rightTab"
-          class="eye-tab"
-          onclick="chooseEye('right')"
-        >
-          右眼
-        </button>
-
+      <div class="tabs">
+        <button id="leftTab" class="tab active" onclick="chooseEye('left')">左眼</button>
+        <button id="rightTab" class="tab" onclick="chooseEye('right')">右眼</button>
       </div>
 
       <div class="control">
-
-        <div class="control-row">
-          <span>左右位置</span>
-          <span id="xValue">0</span>
-        </div>
-
-        <input
-          id="xControl"
-          type="range"
-          min="-50"
-          max="50"
-          value="0"
-        >
-
+        <div class="row"><span>左右位置</span><span id="xText">0</span></div>
+        <input id="x" type="range" min="-120" max="120" value="0">
       </div>
 
       <div class="control">
-
-        <div class="control-row">
-          <span>上下位置</span>
-          <span id="yValue">0</span>
-        </div>
-
-        <input
-          id="yControl"
-          type="range"
-          min="-50"
-          max="50"
-          value="0"
-        >
-
+        <div class="row"><span>上下位置</span><span id="yText">0</span></div>
+        <input id="y" type="range" min="-100" max="100" value="0">
       </div>
 
       <div class="control">
-
-        <div class="control-row">
-          <span>大小</span>
-          <span id="scaleValue">100%</span>
-        </div>
-
-        <input
-          id="scaleControl"
-          type="range"
-          min="70"
-          max="140"
-          value="100"
-        >
-
+        <div class="row"><span>大小</span><span id="scaleText">100%</span></div>
+        <input id="scale" type="range" min="50" max="180" value="100">
       </div>
 
       <div class="control">
-
-        <div class="control-row">
-          <span>旋轉</span>
-          <span id="rotateValue">0°</span>
-        </div>
-
-        <input
-          id="rotateControl"
-          type="range"
-          min="-20"
-          max="20"
-          value="0"
-        >
-
+        <div class="row"><span>旋轉</span><span id="rotateText">0°</span></div>
+        <input id="rotate" type="range" min="-30" max="30" value="0">
       </div>
 
     </div>
 
-    <div class="section-title">
-      原圖 / 試戴後
-    </div>
-
-    <div class="compare">
-
-      <span>原圖</span>
-
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value="100"
-        id="compareSlider"
-      >
-
-      <span>試戴後</span>
-
-    </div>
-
-    <div class="footer-actions">
-
-      <button
-        class="reset-btn"
-        onclick="resetApp()"
-      >
-        重新拍照
-      </button>
-
-      <button
-        class="save-btn"
-        onclick="saveResult()"
-      >
-        儲存結果
-      </button>
-
+    <div class="bottom">
+      <button class="reset" onclick="resetApp()">重新拍照</button>
+      <button class="save" onclick="saveImage()">儲存結果</button>
     </div>
 
   </div>
-
-</main>
-
 </div>
 
 <script>
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const empty=document.getElementById("empty");
+const tryon=document.getElementById("tryon");
 
-const cameraInput =
-document.getElementById("cameraInput");
+const camera=document.getElementById("camera");
+const library=document.getElementById("library");
 
-const libraryInput =
-document.getElementById("libraryInput");
+const baseImage=new Image();
 
-const photo =
-document.getElementById("photo");
+let currentEye="left";
+let currentStyle=0;
 
-const cameraEmpty =
-document.getElementById("cameraEmpty");
+const lashFiles=[
+  "lashes/6d-natural-dense.png",
+  "lashes/6d-yy.png",
+  "lashes/xiaohongshu.png",
+  "lashes/6d-natural.png",
+  "lashes/6d-nude.png",
+  "lashes/6d-caramel.png"
+];
 
-const tryonArea =
-document.getElementById("tryonArea");
+const lashNames=[
+  "6D自然濃密",
+  "6DYY編織",
+  "小紅書設計款",
+  "6D自然",
+  "6D裸妝",
+  "6D焦糖（咖）"
+];
 
-let currentEye = "left";
+let lashLeft=new Image();
+let lashRight=new Image();
+let lashLoaded=false;
 
-let eyeSettings = {
-
-  left:{
-    x:0,
-    y:0,
-    scale:100,
-    rotate:0
-  },
-
-  right:{
-    x:0,
-    y:0,
-    scale:100,
-    rotate:0
-  }
-
+const eye={
+  left:{x:0,y:0,scale:100,rotate:0},
+  right:{x:0,y:0,scale:100,rotate:0}
 };
 
-function openCamera(){
+camera.addEventListener("change",loadPhoto);
+library.addEventListener("change",loadPhoto);
 
-  cameraInput.click();
+function loadPhoto(e){
+  const file=e.target.files[0];
+  if(!file)return;
 
-}
+  const reader=new FileReader();
 
-function openLibrary(){
+  reader.onload=function(ev){
+    baseImage.onload=function(){
 
-  libraryInput.click();
+      canvas.width=baseImage.naturalWidth;
+      canvas.height=baseImage.naturalHeight;
 
-}
+      canvas.style.display="block";
+      empty.style.display="none";
+      tryon.classList.remove("hidden");
 
-cameraInput.addEventListener(
-  "change",
-  handlePhoto
-);
+      resetEyePositions();
+      loadLash();
+      draw();
 
-libraryInput.addEventListener(
-  "change",
-  handlePhoto
-);
+      setTimeout(()=>{
+        tryon.scrollIntoView({behavior:"smooth"});
+      },250);
+    };
 
-function handlePhoto(event){
-
-  const file =
-  event.target.files[0];
-
-  if(!file) return;
-
-  const reader =
-  new FileReader();
-
-  reader.onload =
-  function(e){
-
-    photo.src =
-    e.target.result;
-
-    photo.style.display =
-    "block";
-
-    cameraEmpty.style.display =
-    "none";
-
-    tryonArea.classList.remove(
-      "hidden"
-    );
-
-    setTimeout(()=>{
-
-      tryonArea.scrollIntoView({
-        behavior:"smooth"
-      });
-
-    },200);
-
+    baseImage.src=ev.target.result;
   };
 
   reader.readAsDataURL(file);
-
 }
 
-function selectStyle(
-  button,
-  name
-){
+function resetEyePositions(){
 
-  document
-  .querySelectorAll(
-    ".style-btn"
-  )
-  .forEach(btn=>{
+  eye.left={
+    x:-canvas.width*.175,
+    y:-canvas.height*.105,
+    scale:100,
+    rotate:0
+  };
 
-    btn.classList.remove(
-      "active"
-    );
-
-  });
-
-  button.classList.add(
-    "active"
-  );
-
-  document.getElementById(
-    "styleNotice"
-  ).textContent =
-  "目前選擇：" +
-  name +
-  "。正式版會使用固定睫毛素材貼合眼型，不重新生成睫毛。";
-
-}
-
-function chooseEye(eye){
-
-  currentEye = eye;
-
-  document.getElementById(
-    "leftTab"
-  ).classList.toggle(
-    "active",
-    eye==="left"
-  );
-
-  document.getElementById(
-    "rightTab"
-  ).classList.toggle(
-    "active",
-    eye==="right"
-  );
+  eye.right={
+    x:canvas.width*.175,
+    y:-canvas.height*.105,
+    scale:100,
+    rotate:0
+  };
 
   loadControls();
+}
 
+function loadLash(){
+
+  lashLoaded=false;
+
+  const src=lashFiles[currentStyle];
+
+  lashLeft=new Image();
+  lashRight=new Image();
+
+  let loaded=0;
+
+  function done(){
+    loaded++;
+    if(loaded===2){
+      lashLoaded=true;
+      document.getElementById("status").textContent=
+      "目前款式："+lashNames[currentStyle]+"｜素材已載入，可微調左右眼。";
+      draw();
+    }
+  }
+
+  function failed(){
+    document.getElementById("status").textContent=
+    "目前款式："+lashNames[currentStyle]+"｜等待加入你的原始睫毛透明素材。";
+    draw();
+  }
+
+  lashLeft.onload=done;
+  lashRight.onload=done;
+
+  lashLeft.onerror=failed;
+  lashRight.onerror=failed;
+
+  lashLeft.src=src;
+  lashRight.src=src;
+}
+
+function draw(){
+
+  if(!baseImage.src)return;
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  ctx.drawImage(
+    baseImage,
+    0,0,
+    canvas.width,
+    canvas.height
+  );
+
+  if(!lashLoaded)return;
+
+  drawEye("left",lashLeft,false);
+  drawEye("right",lashRight,true);
+}
+
+function drawEye(side,img,mirror){
+
+  const d=eye[side];
+
+  const baseWidth=canvas.width*.26;
+  const ratio=img.naturalHeight/img.naturalWidth;
+
+  const w=baseWidth*(d.scale/100);
+  const h=w*ratio;
+
+  const centerX=canvas.width/2+d.x;
+  const centerY=canvas.height/2+d.y;
+
+  ctx.save();
+
+  ctx.translate(centerX,centerY);
+  ctx.rotate(d.rotate*Math.PI/180);
+
+  if(mirror){
+    ctx.scale(-1,1);
+  }
+
+  ctx.drawImage(
+    img,
+    -w/2,
+    -h/2,
+    w,
+    h
+  );
+
+  ctx.restore();
+}
+
+function selectStyle(index,btn){
+
+  currentStyle=index;
+
+  document.querySelectorAll(".style")
+  .forEach(x=>x.classList.remove("active"));
+
+  btn.classList.add("active");
+
+  loadLash();
+}
+
+function chooseEye(side){
+
+  currentEye=side;
+
+  leftTab.classList.toggle("active",side==="left");
+  rightTab.classList.toggle("active",side==="right");
+
+  loadControls();
 }
 
 function loadControls(){
 
-  const data =
-  eyeSettings[currentEye];
+  const d=eye[currentEye];
 
-  document.getElementById(
-    "xControl"
-  ).value = data.x;
+  x.value=Math.round(d.x);
+  y.value=Math.round(d.y);
+  scale.value=d.scale;
+  rotate.value=d.rotate;
 
-  document.getElementById(
-    "yControl"
-  ).value = data.y;
-
-  document.getElementById(
-    "scaleControl"
-  ).value = data.scale;
-
-  document.getElementById(
-    "rotateControl"
-  ).value = data.rotate;
-
-  updateLabels();
-
+  labels();
 }
 
-function updateLabels(){
+function labels(){
 
-  const data =
-  eyeSettings[currentEye];
+  const d=eye[currentEye];
 
-  document.getElementById(
-    "xValue"
-  ).textContent =
-  data.x;
-
-  document.getElementById(
-    "yValue"
-  ).textContent =
-  data.y;
-
-  document.getElementById(
-    "scaleValue"
-  ).textContent =
-  data.scale + "%";
-
-  document.getElementById(
-    "rotateValue"
-  ).textContent =
-  data.rotate + "°";
-
+  xText.textContent=Math.round(d.x);
+  yText.textContent=Math.round(d.y);
+  scaleText.textContent=d.scale+"%";
+  rotateText.textContent=d.rotate+"°";
 }
 
-document.getElementById(
-  "xControl"
-).addEventListener(
-  "input",
-  function(){
+x.addEventListener("input",function(){
+  eye[currentEye].x=Number(this.value);
+  labels();
+  draw();
+});
 
-    eyeSettings[currentEye].x =
-    this.value;
+y.addEventListener("input",function(){
+  eye[currentEye].y=Number(this.value);
+  labels();
+  draw();
+});
 
-    updateLabels();
+scale.addEventListener("input",function(){
+  eye[currentEye].scale=Number(this.value);
+  labels();
+  draw();
+});
 
-  }
-);
-
-document.getElementById(
-  "yControl"
-).addEventListener(
-  "input",
-  function(){
-
-    eyeSettings[currentEye].y =
-    this.value;
-
-    updateLabels();
-
-  }
-);
-
-document.getElementById(
-  "scaleControl"
-).addEventListener(
-  "input",
-  function(){
-
-    eyeSettings[currentEye].scale =
-    this.value;
-
-    updateLabels();
-
-  }
-);
-
-document.getElementById(
-  "rotateControl"
-).addEventListener(
-  "input",
-  function(){
-
-    eyeSettings[currentEye].rotate =
-    this.value;
-
-    updateLabels();
-
-  }
-);
+rotate.addEventListener("input",function(){
+  eye[currentEye].rotate=Number(this.value);
+  labels();
+  draw();
+});
 
 function resetApp(){
 
-  photo.src = "";
+  baseImage.src="";
+  canvas.style.display="none";
+  empty.style.display="flex";
+  tryon.classList.add("hidden");
 
-  photo.style.display =
-  "none";
-
-  cameraEmpty.style.display =
-  "flex";
-
-  tryonArea.classList.add(
-    "hidden"
-  );
-
-  cameraInput.value = "";
-  libraryInput.value = "";
+  camera.value="";
+  library.value="";
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
-
 }
 
-function saveResult(){
+function saveImage(){
 
-  alert(
-    "第一版介面已完成。下一步加入真正六款睫毛素材後，這裡會直接儲存試戴完成照片。"
-  );
+  if(!baseImage.src)return;
 
+  if(!lashLoaded){
+    alert("睫毛素材還沒加入。下一步加入你的六款固定睫毛後即可儲存試戴照片。");
+    return;
+  }
+
+  const link=document.createElement("a");
+
+  link.download="LashFit-AI-試戴結果.png";
+  link.href=canvas.toDataURL("image/png");
+  link.click();
 }
-
 </script>
 
 </body>
